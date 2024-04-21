@@ -4,18 +4,29 @@ import AddressInfoForm from "./AddressInformation";
 import AccountInfoForm from "./AccountInformation";
 
 const MultiStepInfoForm: React.FC = () => {
-    const [step, setStep] = useState<number>(1);
+    const [step, setStep] = useState<number>(0);
 
+    const nextStep = () => {
+        setStep (step +1);
+    };
+
+    const prevStep = () => {
+        setStep (step -1);
+    };
+
+    // problem on next and previous button
     return (
-        <div>
-            {step === 1 && <PersonalInfoForm nextStep={() => setStep(step +1)} />}
-            {step === 2 && <AddressInfoForm nextStep={() => setStep(step +1)}  />}
-            {step === 3 && <AccountInfoForm />}
+        <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-md shadow-md">
+            {step === 0 && <PersonalInfoForm nextStep={nextStep} />}
+            {step === 1 && (<AddressInfoForm nextStep={nextStep} prevStep={prevStep}/>)}
+            {step === 2 && <AccountInfoForm prevStep={prevStep}/>}
+            
         </div>
     );
 };
 
 export default MultiStepInfoForm;
+
     // const nextStep = () => {
     // setStep(step + 1);
     // };

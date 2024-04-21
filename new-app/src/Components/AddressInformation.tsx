@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 
 interface AddressInfoFormProps {
     nextStep: () => void;
+    prevStep: () => void;
 }
 
 const AddressInfoSchema = Yup.object().shape({
@@ -14,43 +15,46 @@ const AddressInfoSchema = Yup.object().shape({
     zipCode: Yup.string().matches(/^\d{5}(-\d{4})?$/, 'Invalid Zip Code').required('Zip Code is required'),
 });
 
-const AddressInfoForm: React.FC<AddressInfoFormProps> =({nextStep}) =>
+const AddressInfoForm: React.FC<AddressInfoFormProps> =({ nextStep, prevStep }) =>
     
     <Formik
         initialValues={{ streetAddress: '', city: '', state: '', zipCode: '' }}
         validationSchema={AddressInfoSchema}
         onSubmit={(values) => {
         console.log(values);
+        nextStep();
+        prevStep ();
         }}
     >
         {() => (
         <Form>
-            <h2>Address Information</h2>
-            <div>
-                <label htmlFor="streetAddress">Street Address</label>
-                <Field type="text" name="streetAddress" />
-                <ErrorMessage name="streetAddress" component="div" />
+            <h2 className="text-3xl mb-6">Address Information</h2>
+            <div className="mb-4">
+                <label className="text-xl" htmlFor="streetAddress">Street Address</label>
+                <Field className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="text" name="streetAddress" />
+                <ErrorMessage className="text-red-500" name="streetAddress" component="div" />
             </div>
 
             <div>
-                <label htmlFor="city">City</label>
-                <Field type="text" name="city" />
-                <ErrorMessage name="city" component="div" />
+                <label className="text-xl" htmlFor="city">City</label>
+                <Field className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="text" name="city" />
+                <ErrorMessage className="text-red-500" name="city" component="div" />
             </div>
 
             <div>
-                <label htmlFor="state">State</label>
-                <Field type="text" name="state" />
-                <ErrorMessage name="state" component="div" />
+                <label className="text-xl" htmlFor="state">State</label>
+                <Field className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="text" name="state" />
+                <ErrorMessage className="text-red-500" name="state" component="div" />
             </div>
 
             <div>
-                <label htmlFor="zipCode">Zip Code</label>
-                <Field type="text" name="zipCode" />
-                <ErrorMessage name="zipCode" component="div" />
+                <label className="text-xl" htmlFor="zipCode">Zip Code</label>
+                <Field className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="text" name="zipCode" />
+                <ErrorMessage className="text-red-500" name="zipCode" component="div" />
             </div>
 
-            <button type="submit">Next</button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Next</button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Previous</button>
         </Form>
         )}
     </Formik>

@@ -2,6 +2,10 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
+interface AccountInfoFormProps {
+    prevStep: () => void;
+}
+
 const AccountInfoSchema = Yup.object().shape({
     username: Yup.string().required('Username is required'),
     password: Yup.string().required('Password is required').matches(
@@ -10,35 +14,36 @@ const AccountInfoSchema = Yup.object().shape({
     ),
 });
 
-const AccountInfoForm: React.FC = () => {
-    return (
+const AccountInfoForm: React.FC<AccountInfoFormProps> =({prevStep}) =>
+
     <Formik
         initialValues={{ username: '', password: '' }}
         validationSchema={AccountInfoSchema}
         onSubmit={(values) => {
         console.log(values);
+        prevStep ();
         }}
     >
         {() => (
         <Form>
-            <h2>Account Information</h2>
-            <div>
-                <label htmlFor="username">Username</label>
-                <Field type="text" name="username" />
-                <ErrorMessage name="username" component="div" />
+            <h2 className="text-3xl mb-6">Account Information</h2>
+            <div className="mb-4">
+                <label className="text-xl" htmlFor="username">Username</label>
+                <Field className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="text" name="username" />
+                <ErrorMessage className="text-red-500" name="username" component="div" />
             </div>
 
             <div>
-                <label htmlFor="password">Password</label>
-                <Field type="password" name="password" />
-                <ErrorMessage name="password" component="div" />
+                <label className="text-xl" htmlFor="password">Password</label>
+                <Field className="block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500" type="password" name="password" />
+                <ErrorMessage className="text-red-500" name="password" component="div" />
             </div>
 
-            <button type="submit">Submit</button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Submit</button>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Previous</button>
         </Form>
         )}
     </Formik>
-    );
-};
+
 
 export default AccountInfoForm;
