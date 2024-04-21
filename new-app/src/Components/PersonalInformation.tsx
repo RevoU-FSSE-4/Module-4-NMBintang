@@ -2,19 +2,24 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
+interface personalInfoFormProps {
+    nextStep: () => void;
+}
+
 const PersonalInfoSchema = Yup.object().shape({
     fullName: Yup.string().required('Full Name is required'),
     email: Yup.string().email('Invalid email').required('Email is required'),
     dob: Yup.date().required('Date of Birth is required'),
     });
 
-const PersonalInfoForm: React.FC = () => {
-    return (
+const PersonalInfoForm: React.FC<personalInfoFormProps> =({nextStep}) =>
+
     <Formik
         initialValues={{ fullName: '', email: '', dob: '' }}
         validationSchema={PersonalInfoSchema}
         onSubmit={(values) => {
         console.log(values);
+        nextStep ();
         }}
     >
         {() => (
@@ -42,7 +47,6 @@ const PersonalInfoForm: React.FC = () => {
         </Form>
         )}
     </Formik>
-    );
-};
+
 
 export default PersonalInfoForm;

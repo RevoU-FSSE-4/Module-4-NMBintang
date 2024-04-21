@@ -2,6 +2,11 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
+
+interface AddressInfoFormProps {
+    nextStep: () => void;
+}
+
 const AddressInfoSchema = Yup.object().shape({
     streetAddress: Yup.string().required('Street Address is required'),
     city: Yup.string().required('City is required'),
@@ -9,8 +14,8 @@ const AddressInfoSchema = Yup.object().shape({
     zipCode: Yup.string().matches(/^\d{5}(-\d{4})?$/, 'Invalid Zip Code').required('Zip Code is required'),
 });
 
-const AddressInfoForm: React.FC = () => {
-    return (
+const AddressInfoForm: React.FC<AddressInfoFormProps> =({nextStep}) =>
+    
     <Formik
         initialValues={{ streetAddress: '', city: '', state: '', zipCode: '' }}
         validationSchema={AddressInfoSchema}
@@ -49,7 +54,5 @@ const AddressInfoForm: React.FC = () => {
         </Form>
         )}
     </Formik>
-    );
-};
 
 export default AddressInfoForm;
