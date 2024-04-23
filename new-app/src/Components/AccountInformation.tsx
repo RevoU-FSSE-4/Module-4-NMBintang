@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 interface AccountInfoFormProps {
     prevStep: (values:any) => void;
     formData: (values:any) => void;
+    reset: (values:any) => void
 }
 
 const AccountInfoSchema = Yup.object().shape({
@@ -15,15 +16,15 @@ const AccountInfoSchema = Yup.object().shape({
     ),
 });
 
-const AccountInfoForm: React.FC<AccountInfoFormProps> =({prevStep, formData}) =>
+const AccountInfoForm: React.FC<AccountInfoFormProps> =({prevStep, formData, reset}) =>
 
     <Formik
         initialValues={{ username: '', password: '' }}
         validationSchema={AccountInfoSchema}
         onSubmit={(values) => {
-        alert(JSON.stringify({...formData, ...values}));
-        console.log(values);
-        prevStep (values);
+            alert(JSON.stringify({...formData, ...values}));
+            console.log(values);
+            reset (values);
         }}
     >
         {() => (

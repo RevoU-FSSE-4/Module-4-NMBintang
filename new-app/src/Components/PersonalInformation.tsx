@@ -18,8 +18,8 @@ const PersonalInfoForm: React.FC<personalInfoFormProps> =({nextStep}) =>
         initialValues={{ fullName: '', email: '', dob: '' }}
         validationSchema={PersonalInfoSchema}
         onSubmit={(values) => {
-        console.log(values);
-        nextStep (values);
+            console.log(values);
+            nextStep (values);
         }}
     >
         {() => (

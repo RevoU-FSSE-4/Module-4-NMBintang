@@ -23,7 +23,6 @@ const AddressInfoForm: React.FC<AddressInfoFormProps> =({ nextStep, prevStep }) 
         onSubmit={(values) => {
         console.log(values);
         nextStep(values);
-        
         }}
     >
         {() => (

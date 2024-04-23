@@ -16,12 +16,16 @@ const MultiStepInfoForm: React.FC = () => {
         setStep (step -1);
     };
 
+    const reset = ():void => {
+        setStep (step -2);
+    };
+
     // problem on next and previous button
     return (
         <div className="max-w-md mx-auto mt-10 p-6 bg-white rounded-md shadow-md">
             {step === 1 && <PersonalInfoForm nextStep={nextStep} />}
             {step === 2 && <AddressInfoForm nextStep={nextStep} prevStep={prevStep}/>}
-            {step === 3 && <AccountInfoForm formData={formData} prevStep={prevStep}/>}
+            {step === 3 && <AccountInfoForm reset={reset} formData={formData} prevStep={prevStep}/>}
             
         </div>
     );
