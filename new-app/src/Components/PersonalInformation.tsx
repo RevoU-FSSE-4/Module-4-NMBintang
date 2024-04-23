@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 interface personalInfoFormProps {
-    nextStep: () => void;
+    nextStep: (values:any) => void;
 }
 
 const PersonalInfoSchema = Yup.object().shape({
@@ -19,7 +19,7 @@ const PersonalInfoForm: React.FC<personalInfoFormProps> =({nextStep}) =>
         validationSchema={PersonalInfoSchema}
         onSubmit={(values) => {
         console.log(values);
-        nextStep ();
+        nextStep (values);
         }}
     >
         {() => (

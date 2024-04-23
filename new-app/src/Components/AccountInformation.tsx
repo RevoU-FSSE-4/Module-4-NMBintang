@@ -1,9 +1,10 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 
 interface AccountInfoFormProps {
-    prevStep: () => void;
+    prevStep: (values:any) => void;
+    formData: (values:any) => void;
 }
 
 const AccountInfoSchema = Yup.object().shape({
@@ -14,14 +15,15 @@ const AccountInfoSchema = Yup.object().shape({
     ),
 });
 
-const AccountInfoForm: React.FC<AccountInfoFormProps> =({prevStep}) =>
+const AccountInfoForm: React.FC<AccountInfoFormProps> =({prevStep, formData}) =>
 
     <Formik
         initialValues={{ username: '', password: '' }}
         validationSchema={AccountInfoSchema}
         onSubmit={(values) => {
+        alert(JSON.stringify({...formData, ...values}));
         console.log(values);
-        prevStep ();
+        prevStep (values);
         }}
     >
         {() => (
@@ -39,8 +41,10 @@ const AccountInfoForm: React.FC<AccountInfoFormProps> =({prevStep}) =>
                 <ErrorMessage className="text-red-500" name="password" component="div" />
             </div>
 
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Submit</button>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Previous</button>
+            <div className="flex justify-between">
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Submit</button>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="button" onClick={prevStep}>Previous</button>
+            </div>
         </Form>
         )}
     </Formik>

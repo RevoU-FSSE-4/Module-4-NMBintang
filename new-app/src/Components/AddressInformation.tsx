@@ -1,11 +1,11 @@
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 
 
 interface AddressInfoFormProps {
-    nextStep: () => void;
-    prevStep: () => void;
+    nextStep: (values:any) => void;
+    prevStep: (values:any) => void;
 }
 
 const AddressInfoSchema = Yup.object().shape({
@@ -22,8 +22,8 @@ const AddressInfoForm: React.FC<AddressInfoFormProps> =({ nextStep, prevStep }) 
         validationSchema={AddressInfoSchema}
         onSubmit={(values) => {
         console.log(values);
-        nextStep();
-        prevStep ();
+        nextStep(values);
+        
         }}
     >
         {() => (
@@ -53,8 +53,10 @@ const AddressInfoForm: React.FC<AddressInfoFormProps> =({ nextStep, prevStep }) 
                 <ErrorMessage className="text-red-500" name="zipCode" component="div" />
             </div>
 
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Next</button>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Previous</button>
+            <div className="flex justify-between">
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">Next</button>
+                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="button" onClick={prevStep}>Previous</button>
+            </div>
         </Form>
         )}
     </Formik>
