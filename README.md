@@ -1,1 +1,19 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/YS8Z4-23)
+### Tasks:
+
+1. **Module 4 Checkpoint:**
+   - Develop a multistep form that functions within a single page but renders multiple components containing personal information, address information, and account information.
+
+2. **Module 4 Assignment:**
+   - Create three pages: Register, Login, and Category.
+   - Implement API logic for each page:
+     - Register: Use POST method.
+     - Login: Use POST method.
+     - Category:
+       - Use DELETE method on the delete button and logout.
+       - Use PUT to update categories.
+       - Utilize GET method to retrieve category by ID and all categories.
+
+### Implementation:
+Since there's only one `app.tsx` file available in folder new-app:
+- Import `MultiStepForm` to test the multistep program for the Module 4 Checkpoint.
+- Import `MainPage` for the Module 4 Assignment.
