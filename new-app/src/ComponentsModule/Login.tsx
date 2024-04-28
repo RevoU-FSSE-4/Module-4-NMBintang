@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import { Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from "react-router-dom";
-import { ClassificationTypeNames } from "typescript";
 
 /*testuid
 testuid@example.com
