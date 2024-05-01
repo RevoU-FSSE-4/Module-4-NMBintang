@@ -112,14 +112,14 @@ const Categories: React.FC = () => {
         setCategories(newCategories);
     };
 
-    const getCategoryById = async (values: any) => {
+    const getCategoryById = async (id:string) => {
         try {
             const bearerToken = localStorage.getItem('token');
             if (!bearerToken) {
                 throw new Error('Token not found in localStorage');
             }
 
-            const response = await fetch('https://library-crud-sample.vercel.app/api/category/:id', {
+            const response = await fetch('https://library-crud-sample.vercel.app/api/category/+id', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -139,7 +139,35 @@ const Categories: React.FC = () => {
             setSubmitting(false);
         }
     };
-    
+
+    const deleteCategoryById = async (id:string) => {
+        try {
+            const url = 'https://library-crud-sample.vercel.app/api/category/';
+            const bearerToken = localStorage.getItem('token');
+            if (!bearerToken) {
+                throw new Error('Token not found in localStorage');
+            }
+
+            const response = await fetch(url+id, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${bearerToken}`,
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to delete category');
+            }
+
+            const responseData = await response.json();
+            console.log('API response:', responseData);
+        } catch (error) {
+            console.error('Error:', error);
+        } finally {
+            setSubmitting(false);
+        }
+    };
 
     return (
         <Formik
@@ -196,8 +224,8 @@ const Categories: React.FC = () => {
                                         />
                                     </td>
                                     <td>
-                                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="button">Remove</button>
-                                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="button">Update</button>
+                                        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="button" onClick={() => deleteCategoryById(category.id)}>Remove</button>
+                                        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="button">Update</button>
                                     </td>
                                 </tr>
                             ))}
