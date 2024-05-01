@@ -169,6 +169,42 @@ const Categories: React.FC = () => {
         }
     };
 
+    const updateCategoryById = async (id:string, category_name:string, category_description:string ) => {
+        try {
+            const url = 'https://library-crud-sample.vercel.app/api/category/update/';
+            const bearerToken = localStorage.getItem('token');
+            if (!bearerToken) {
+                throw new Error('Token not found in localStorage');
+            }
+
+            const response = await fetch(url+id, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${bearerToken}`,
+                },
+                body: JSON.stringify({
+                    "id": id,
+                    "category_name": category_name,
+                    "category_description": category_description,
+                    "is_active": null
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to update category');
+                
+            }
+
+            const responseData = await response.json();
+            console.log('API response:', responseData);
+        } catch (error) {
+            console.error('Error:', error);
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
     return (
         <Formik
             initialValues={{ dataCategories: '', dataDescription: '' }}
@@ -225,7 +261,7 @@ const Categories: React.FC = () => {
                                     </td>
                                     <td>
                                         <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" type="button" onClick={() => deleteCategoryById(category.id)}>Remove</button>
-                                        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="button">Update</button>
+                                        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" type="button" onClick={() => updateCategoryById(category.id,category.category_name,category.category_description)}>Update</button>
                                     </td>
                                 </tr>
                             ))}
